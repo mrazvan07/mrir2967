@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/FACULTATE/Semestru_6/VVSS/LAB/LAB_1/01_Tasks/Docs/Lab01/01_Tasks/src/main/java/tasks</OriginalElement>
+  <nodes>
+    <node x="-86.0" y="1178.0">tasks.view.Main</node>
+    <node x="911.0" y="157.0">tasks.model.ArrayTaskList</node>
+    <node x="558.0" y="989.0">tasks.model.TasksOperations</node>
+    <node x="905.0" y="-15.0">tasks.model.ArrayTaskList.ArrayTaskListIterator</node>
+    <node x="577.0" y="-15.0">tasks.controller.NewEditController</node>
+    <node x="-86.0" y="989.0">tasks.services.DateService</node>
+    <node x="556.0" y="558.0">tasks.model.TaskList</node>
+    <node x="14.62878787878789" y="235.0">tasks.model.LinkedTaskList</node>
+    <node x="921.0" y="989.0">tasks.controller.TaskInfoController</node>
+    <node x="807.0" y="558.0">tasks.services.TasksService</node>
+    <node x="245.0" y="989.0">tasks.controller.Notificator</node>
+    <node x="81.0" y="19.0">tasks.model.LinkedTaskList.LinkedTaskListIterator</node>
+    <node x="-86.0" y="-15.0">tasks.model.LinkedTaskList.Node</node>
+    <node x="-86.0" y="558.0">tasks.services.TaskIO</node>
+    <node x="321.0" y="-15.0">tasks.model.Task</node>
+    <node x="214.0" y="558.0">tasks.controller.Controller</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="tasks.model.LinkedTaskList" target="tasks.model.LinkedTaskList.Node" relationship="CREATE">
+      <point x="-87.5" y="0.0" />
+      <point x="-27.5" y="374.0" />
+      <point x="-15.0" y="95.0" />
+    </edge>
+    <edge source="tasks.model.LinkedTaskList" target="tasks.model.LinkedTaskList.LinkedTaskListIterator" relationship="CREATE">
+      <point x="76.37121212121211" y="-139.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="tasks.model.LinkedTaskList" target="tasks.model.LinkedTaskList.Node" relationship="TO_ONE">
+      <point x="-87.5" y="15.0" />
+      <point x="-42.5" y="389.0" />
+      <point x="-30.0" y="95.0" />
+    </edge>
+    <edge source="tasks.model.LinkedTaskList.LinkedTaskListIterator" target="tasks.model.LinkedTaskList" relationship="INNER_CLASS">
+      <point x="-48.75" y="61.0" />
+      <point x="129.75" y="205.0" />
+      <point x="102.12878787878788" y="205.0" />
+      <point x="0.0" y="-139.0" />
+    </edge>
+    <edge source="tasks.model.ArrayTaskList" target="tasks.model.ArrayTaskList.ArrayTaskListIterator" relationship="CREATE">
+      <point x="0.0" y="-139.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="tasks.model.LinkedTaskList.Node" target="tasks.model.LinkedTaskList" relationship="INNER_CLASS">
+      <point x="0.0" y="95.0" />
+      <point x="-12.5" y="205.0" />
+      <point x="102.12878787878788" y="205.0" />
+      <point x="0.0" y="-139.0" />
+    </edge>
+    <edge source="tasks.model.ArrayTaskList.ArrayTaskListIterator" target="tasks.model.ArrayTaskList" relationship="INNER_CLASS">
+      <point x="-46.75" y="61.0" />
+      <point x="951.75" y="132.0" />
+      <point x="954.75" y="132.0" />
+      <point x="-43.75" y="-139.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.49535415079969547" showDependencies="true" x="595.2623825338255" y="614.602190651907" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
