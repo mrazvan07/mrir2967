@@ -38,6 +38,10 @@ public class Controller {
     @FXML
     public  TableView tasks;
     @FXML
+    public Button btnEdit;
+    @FXML
+    public Button btnNew;
+    @FXML
     private TableColumn<Task, String> columnTitle;
     @FXML
     private TableColumn<Task, String> columnTime;
@@ -84,7 +88,10 @@ public class Controller {
     public void showTaskDialog(ActionEvent actionEvent){
         Object source = actionEvent.getSource();
         NewEditController.setClickedButton((Button) source);
-
+        Task selected = (Task)mainTable.getSelectionModel().getSelectedItem();
+        if (selected == null && source == btnEdit) {
+            return;
+        }
         try {
             editNewStage = new Stage();
             NewEditController.setCurrentStage(editNewStage);
@@ -93,7 +100,9 @@ public class Controller {
             NewEditController editCtrl = loader.getController();
             editCtrl.setService(service);
             editCtrl.setTasksList(tasksList);
-            editCtrl.setCurrentTask((Task)mainTable.getSelectionModel().getSelectedItem());
+            if (selected != null && source == btnEdit) {
+                editCtrl.setCurrentTask(selected);
+            }
             editNewStage.setScene(new Scene(root, 600, 350));
             editNewStage.setResizable(false);
             editNewStage.initOwner(Main.primaryStage);
@@ -107,6 +116,9 @@ public class Controller {
     @FXML
     public void deleteTask(){
         Task toDelete = (Task)tasks.getSelectionModel().getSelectedItem();
+        if (toDelete == null) {
+            return;
+        }
         tasksList.remove(toDelete);
         TaskIO.rewriteFile(tasksList);
     }
@@ -129,12 +141,18 @@ public class Controller {
     }
     @FXML
     public void showFilteredTasks(){
-        Date start = getDateFromFilterField(datePickerFrom.getValue(), fieldTimeFrom.getText());
-        Date end = getDateFromFilterField(datePickerTo.getValue(), fieldTimeTo.getText());
+        Date start, end;
+        try {
+            start = getDateFromFilterField(datePickerFrom.getValue(), fieldTimeFrom.getText());
+            end = getDateFromFilterField(datePickerTo.getValue(), fieldTimeTo.getText());
+        }
+        catch (NullPointerException e) {
+            return;
+        }
 
-        Iterable<Task> filtered =  service.filterTasks(start, end);
+        Iterable<Task> filtered = service.filterTasks(start, end);
 
-        ObservableList<Task> observableTasks = FXCollections.observableList((ArrayList)filtered);
+        ObservableList<Task> observableTasks = FXCollections.observableList((ArrayList) filtered);
         tasks.setItems(observableTasks);
         updateCountLabel(observableTasks);
     }
