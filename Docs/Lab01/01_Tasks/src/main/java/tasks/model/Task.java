@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Task implements Serializable, Cloneable {
+public class Task implements Serializable {
     private String title;
     private Date time;
     private Date start;
@@ -16,9 +16,9 @@ public class Task implements Serializable, Cloneable {
     private boolean active;
 
     private static final Logger log = Logger.getLogger(Task.class.getName());
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    public static SimpleDateFormat getDateFormat(){
+    public  SimpleDateFormat getDateFormat(){
         return sdf;
     }
     public Task(String title, Date time){
@@ -170,14 +170,6 @@ public class Task implements Serializable, Cloneable {
                 ", interval=" + interval +
                 ", active=" + active +
                 '}';
-    }
-    @Override
-    protected Task clone() throws CloneNotSupportedException {
-        Task task  = (Task)super.clone();
-        task.time = (Date)this.time.clone();
-        task.start = (Date)this.start.clone();
-        task.end = (Date)this.end.clone();
-        return task;
     }
 }
 
