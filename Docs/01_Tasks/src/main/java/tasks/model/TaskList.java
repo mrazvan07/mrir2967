@@ -1,7 +1,6 @@
 package tasks.model;
 
 import org.apache.log4j.Logger;
-import tasks.view.Main;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,8 +13,8 @@ public abstract class TaskList implements Iterable<Task>, Serializable  {
     public abstract int size();
     public abstract Task getTask(int index);
     public abstract List<Task> getAll();
-    private static final Logger log = Logger.getLogger(TaskList.class.getName());
 
+    private static final Logger log = Logger.getLogger(TaskList.class.getName());
 
     public abstract Iterator<Task> iterator();
 

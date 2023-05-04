@@ -37,6 +37,9 @@ public class TasksService {
     }
 
     public int parseFromStringToSeconds(String stringTime){//hh:MM
+        //
+        String regex_for_hhMM_format = "^[0-9]+[0-9]:[0-9][0-9]$";
+        if (!stringTime.matches(regex_for_hhMM_format)) throw new IllegalArgumentException("Interval should respect hh:MM format");
         String[] units = stringTime.split(":");
         int hours = Integer.parseInt(units[0]);
         int minutes = Integer.parseInt(units[1]);

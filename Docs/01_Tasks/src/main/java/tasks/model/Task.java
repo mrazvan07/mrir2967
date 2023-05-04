@@ -16,11 +16,22 @@ public class Task implements Serializable {
     private boolean active;
 
     private static final Logger log = Logger.getLogger(Task.class.getName());
-    private  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    public  SimpleDateFormat getDateFormat(){
+    public static SimpleDateFormat getDateFormat(){
         return sdf;
     }
+
+
+    public Task(Task task){
+        this.title = task.title;
+        this.time = task.time;
+        this.start = task.start;
+        this.end = task.end;
+        this.interval = task.interval;
+        this.active = task.active;
+    }
+
     public Task(String title, Date time){
         if (time.getTime() < 0) {
             log.error("time below bound");
@@ -36,10 +47,10 @@ public class Task implements Serializable {
             log.error("time below bound");
             throw new IllegalArgumentException("Time cannot be negative");
         }
-        if (interval < 1) {
+        /*if (interval < 1) {
             log.error("interval < than 1");
             throw new IllegalArgumentException("interval should me > 1");
-        }
+        }*/
         this.title = title;
         this.start = start;
         this.end = end;
@@ -95,8 +106,10 @@ public class Task implements Serializable {
         return !(this.interval == 0);
 
     }
+
+    // current -> start time selected in checkbox
     public Date nextTimeAfter(Date current){
-        if (current.after(end) || current.equals(end))return null;
+        if (current.after(end) || current.equals(end))return null; // if startTime > endTime || startTime == endTime
         if (isRepeated() && isActive()){
             Date timeBefore  = start;
             Date timeAfter = start;
@@ -104,11 +117,11 @@ public class Task implements Serializable {
                 return start;
             }
             if ((current.after(start) || current.equals(start)) && (current.before(end) || current.equals(end))){
-                for (long i = start.getTime(); i <= end.getTime(); i += interval*1000){
+                for (long i = start.getTime(); i <= end.getTime(); i += interval*1000){ // interval is in seconds
                     if (current.equals(timeAfter)) return new Date(timeAfter.getTime()+interval*1000);
                     if (current.after(timeBefore) && current.before(timeAfter)) return timeBefore;//return timeAfter
                     timeBefore = timeAfter;
-                    timeAfter = new Date(timeAfter.getTime()+ interval*1000);
+                    timeAfter = new Date(timeAfter.getTime()+ interval*1000); // diferenta intre ele de o secunda
                 }
             }
         }
@@ -117,6 +130,8 @@ public class Task implements Serializable {
         }
         return null;
     }
+
+
     //duplicate methods for TableView which sets column
     // value by single method and doesn't allow passing parameters
     public String getFormattedDateStart(){
@@ -171,5 +186,7 @@ public class Task implements Serializable {
                 ", active=" + active +
                 '}';
     }
+
+
 }
 

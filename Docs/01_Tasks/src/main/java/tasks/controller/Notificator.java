@@ -2,7 +2,6 @@ package tasks.controller;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import org.apache.log4j.Logger;
 import org.controlsfx.control.Notifications;
 import tasks.model.Task;
@@ -17,11 +16,9 @@ public class Notificator extends Thread {
     private static final Logger log = Logger.getLogger(Notificator.class.getName());
 
     private ObservableList<Task> tasksList;
-    private Node owner;
 
-    public Notificator(ObservableList<Task> tasksList, Node owner){
+    public Notificator(ObservableList<Task> tasksList){
         this.tasksList=tasksList;
-        this.owner = owner;
     }
 
     @Override
@@ -37,17 +34,19 @@ public class Notificator extends Thread {
                         long currentMinute = getTimeInMinutes(currentDate);
                         long taskMinute = getTimeInMinutes(next);
                         if (currentMinute == taskMinute){
-                            showNotification(t, this.owner);
+                            showNotification(t);
                         }
                     }
                     else {
                         if (!t.isRepeated()){
                             if (getTimeInMinutes(currentDate) == getTimeInMinutes(t.getTime())){
-                                showNotification(t, this.owner);
+                                showNotification(t);
                             }
                         }
+
                     }
                 }
+
             }
             try {
                 Thread.sleep(millisecondsInSec*secondsInMin);
@@ -58,11 +57,10 @@ public class Notificator extends Thread {
             currentDate = new Date();
         }
     }
-    public static void showNotification(Task task, Node owner){
+    public static void showNotification(Task task){
         log.info("push notification showing");
         Platform.runLater(() -> {
-            Notifications notification = Notifications.create();
-            notification.owner(owner).title("Task reminder").text("It's time for " + task.getTitle()).showInformation();
+            Notifications.create().title("Task reminder").text("It's time for " + task.getTitle()).showInformation();
         });
     }
     private static long getTimeInMinutes(Date date){

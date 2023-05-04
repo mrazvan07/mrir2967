@@ -67,6 +67,37 @@ public class NewEditController {
     private static final String DEFAULT_END_TIME = "10:00";
     private static final String DEFAULT_INTERVAL_TIME = "0:30";
 
+    private boolean testingPhase = false;
+
+    /*
+    * Constructor method only for Junit Testing F01!!!!!!! CA SA MEARGA APLICATIA TREBUIE SA COMENTEZI CONSTRUCTORUL !!!!!!!!!!!
+    * !!!!!!!!!!! SE DECOMENTEAZA DOAR PENTRU TESTE !!!!!!!!!!
+    * */
+    public NewEditController(ObservableList<Task> tasksList,TasksService tasksService, DateService dateService) {
+        this.tasksList = tasksList;
+        this.service = tasksService;
+        this.dateService = dateService;
+        this.currentTask = null;
+        this.testingPhase = true;
+    }
+
+    /*
+    * title and interval may be valid or invalid input
+    * the rest of the fields are valid
+    * */
+    public void setFXMLFieldsForTesting(TextField fieldTitle, TextField fieldInterval, DatePicker datePickerStart, DatePicker datePickerEnd, TextField txtFieldTimeStart, TextField txtFieldTimeEnd, CheckBox checkBoxActive, CheckBox checkBoxRepeated){
+        if(!testingPhase) return;
+        this.fieldTitle = fieldTitle;
+        this.fieldInterval = fieldInterval;
+        this.datePickerStart = datePickerStart;
+        this.datePickerEnd = datePickerEnd;
+        this.txtFieldTimeStart = txtFieldTimeStart;
+        this.txtFieldTimeEnd = txtFieldTimeEnd;
+        this.checkBoxRepeated = checkBoxRepeated;
+        this.checkBoxActive = checkBoxActive;
+        // restu se seteaza ca sa treaca metoda makeTask();
+    }
+
     public void setTasksList(ObservableList<Task> tasksList){
         this.tasksList =tasksList;
     }
@@ -156,8 +187,11 @@ public class NewEditController {
             }
             currentTask = null;
         }
-        TaskIO.rewriteFile(tasksList);
-        Controller.editNewStage.close();
+
+        if (!testingPhase) {
+            TaskIO.rewriteFile(tasksList);
+            Controller.editNewStage.close();
+        }
     }
     @FXML
     public void closeDialogWindow(){
@@ -171,6 +205,8 @@ public class NewEditController {
             result = makeTask();
         }
         catch (RuntimeException e){
+            if (testingPhase) throw new IllegalArgumentException(e.getMessage());
+
             incorrectInputMade = true;
             try {
                 Stage stage = new Stage();
@@ -190,6 +226,8 @@ public class NewEditController {
     private Task makeTask(){
         Task result;
         String newTitle = fieldTitle.getText();
+        if(newTitle.strip().isEmpty()) throw new IllegalArgumentException("Title should not be empty");
+        if(newTitle.strip().length() >=255) throw new IllegalArgumentException("Title too long");
         Date startDateWithNoTime = dateService.getDateValueFromLocalDate(datePickerStart.getValue());//ONLY date!!without time
         Date newStartDate = dateService.getDateMergedWithTime(txtFieldTimeStart.getText(), startDateWithNoTime);
         if (checkBoxRepeated.isSelected()){
@@ -204,7 +242,7 @@ public class NewEditController {
         }
         boolean isActive = checkBoxActive.isSelected();
         result.setActive(isActive);
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }
 

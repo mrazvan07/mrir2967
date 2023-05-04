@@ -3,7 +3,6 @@ package tasks.view;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -44,22 +43,21 @@ public class Main extends Application {
             Parent root = loader.load();//loader.load(this.getClass().getResource("/fxml/main.fxml"));
             Controller ctrl= loader.getController();
             service = new TasksService(savedTasksList);
-
             ctrl.setService(service);
             primaryStage.setTitle("Task Manager");
             primaryStage.setScene(new Scene(root, defaultWidth, defaultHeight));
             primaryStage.setMinWidth(defaultWidth);
             primaryStage.setMinHeight(defaultHeight);
             primaryStage.show();
-            primaryStage.setOnCloseRequest(we -> {
-                System.exit(0);
-            });
-            new Notificator(FXCollections.observableArrayList(service.getObservableList()), root).start();
         }
         catch (IOException e){
             e.printStackTrace();
             log.error("error reading main.fxml");
         }
+        primaryStage.setOnCloseRequest(we -> {
+                System.exit(0);
+            });
+        new Notificator(FXCollections.observableArrayList(service.getObservableList())).start();
     }
 
     public static void main(String[] args) {
