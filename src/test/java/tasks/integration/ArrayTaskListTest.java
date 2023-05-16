@@ -10,7 +10,7 @@ import tasks.services.TasksService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ArrayTaskListTest {
+public class ArrayTaskListTest {
 
     @Mock
     Task task1;
@@ -24,7 +24,7 @@ class ArrayTaskListTest {
     }
 
     @Test
-    void addTaskTest(){
+    public void addTaskTest(){
         ArrayTaskList arrayTaskList=new ArrayTaskList();
         arrayTaskList.add(task1);
         arrayTaskList.add(task2);
@@ -34,7 +34,7 @@ class ArrayTaskListTest {
     }
 
     @Test
-    void removeTaskTest(){
+    public void removeTaskTest(){
         ArrayTaskList arrayTaskList=new ArrayTaskList();
         arrayTaskList.add(task1);
         arrayTaskList.add(task2);

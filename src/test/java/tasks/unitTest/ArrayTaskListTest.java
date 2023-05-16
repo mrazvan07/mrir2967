@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 
-class ArrayTaskListTest {
+public class ArrayTaskListTest {
 
     @Mock
     Task taskMock;
@@ -24,7 +24,7 @@ class ArrayTaskListTest {
     }
 
     @Test
-    void addTest()  {
+    public void addTest()  {
         ArrayTaskList arrayTaskList = new ArrayTaskList();
 
         assertEquals(arrayTaskList.size(),0);
@@ -36,7 +36,7 @@ class ArrayTaskListTest {
     }
 
     @Test
-    void removeTest() {
+    public void removeTest() {
 
         ArrayTaskList arrayTaskList = new ArrayTaskList();
 

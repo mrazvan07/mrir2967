@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TasksServiceTest {
+public class TasksServiceTest {
 
     @Mock
     ArrayTaskList arrayTaskList;
@@ -43,7 +43,7 @@ class TasksServiceTest {
 
 
     @Test
-    void getAllTasksTest() throws ParseException {
+    public void getAllTasksTest() throws ParseException {
 
         String description = "alabala";
         Date dateStart = sdf.parse("2023-09-09 08:00");
@@ -56,7 +56,7 @@ class TasksServiceTest {
     }
 
     @Test
-    void filterTasksTest() throws ParseException {
+    public void filterTasksTest() throws ParseException {
 
         Date dateStartIncoming = sdf.parse("2023-09-09 08:00");
         Date dateEndIncoming = sdf.parse("2023-09-12 09:00");

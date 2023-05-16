@@ -10,12 +10,12 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class TaskTest {
+public class TaskTest {
 
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @Test
-    void constructorTest() throws ParseException {
+    public void constructorTest() throws ParseException {
         String description = "alabala";
         Date dateStart = sdf.parse("2023-09-09 08:00");
         Date dateEnd = sdf.parse("2023-09-09 09:00");
@@ -46,7 +46,7 @@ class TaskTest {
 
 
     @Test
-    void nextTimeAfterTest() throws ParseException {
+    public void nextTimeAfterTest() throws ParseException {
 
         String description = "alabala";
         Date dateStart = sdf.parse("2023-09-09 08:00");

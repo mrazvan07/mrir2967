@@ -12,12 +12,12 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaskServiceTest {
+public class TaskServiceTest {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Test
-    void getAllTasksTest() throws ParseException {
+    public void getAllTasksTest() throws ParseException {
         String description = "alabala";
         Date dateStart = sdf.parse("2023-09-10 08:00");
         Date dateEnd = sdf.parse("2023-09-11 09:00");
@@ -40,7 +40,7 @@ class TaskServiceTest {
     }
 
     @Test
-    void filterTasksTest() throws ParseException {
+    public void filterTasksTest() throws ParseException {
         String description = "alabala";
         Date dateStart = sdf.parse("2023-09-10 08:00");
         Date dateEnd = sdf.parse("2023-09-11 09:00");
